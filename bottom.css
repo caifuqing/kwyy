@@ -4,7 +4,7 @@
   background-color:#0099ff;
   position:absolute;
   left:2%;
-  bottom:2%;
+  bottom:1%;
   border-radius:5px;
   }
 #JinDuTiao{
@@ -55,6 +55,7 @@
 #Dbofanghei{
   width:50%;
   height:100%;
+  background-color:#fff;
   background-size:100% 100%;
   position:absolute;
   border-radius:5px;
