@@ -47,7 +47,6 @@
   }
 
 #DfengmianK{
-  filter:drop-shadow(0 0 1px #000000);
   margin:0 0.5vw;
   width:18vh;
   height:9vh;
@@ -58,6 +57,7 @@
   height:100%;
   background-size:100% 100%;
   position:absolute;
+  border-radius:5px;
   z-index:2;
   }
 #Dfengmian{
@@ -67,7 +67,7 @@
   position:absolute;
   width:50%;
   height:100%;
-  animation: move 10s linear infinite;
+  animation: move 6s linear infinite;
   background-size:100% 100%;
    }
 
@@ -98,12 +98,11 @@
   height:100%;
   position:relative;
   }
-#bottom p{
+#Dshichang p{
   filter:drop-shadow(0 0 1px #000000);
   color:white;
-  float:left;
   position:absolute;
-  bottom:2%;
+  bottom:-20%;
   }
 #MZtime{
   left:2%;
@@ -118,4 +117,4 @@
              100%{
                  transform: rotate(360deg);
              }
-        }
+}
