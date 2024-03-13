@@ -1,0 +1,83 @@
+<html>
+ <head></head>
+ <body>
+  <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>WebCat</title>
+  <script src="jquery.min.js"></script>
+  <div class="wrap-box">
+   <div class="flex-box">
+    <form action="javascript:SSi();"><input type="search" placeholder="歌名/歌手" id="key-box">
+    </form>
+   </div>
+   <div class="list-box"></div>
+  </div>
+  <script>
+        let keyBox = document.getElementById('key-box')
+        let listBox = document.querySelector('.list-box')
+        var words =[];
+
+        keyBox.oninput=function (){
+           if(document.getElementById('txtBox')){
+               listBox.removeChild(document.getElementById('txtBox'))
+           }
+           let keyword  = this.value;
+           let api="http://msearchcdn.kugou.com/new/app/i/search.php?student=0&cmd=302&keyword="+keyword;
+          $.get(api,function(data){
+          let LXC=JSON.parse(data).data;
+        for(i=0;i<LXC.length;i++){
+          let txt = document.createElement('p')
+               txt.innerText =LXC[i].keyword;
+               txtBox.appendChild(txt)
+             }
+             });
+       
+           let txtBox = document.createElement('div')
+           txtBox.id  = 'txtBox'
+           listBox.appendChild(txtBox)
+           //利用事件委托优化，监听词条click事件
+           txtBox.onclick =function(e){
+             let stl=e.target.innerText;
+             keyBox.value =stl;
+             onSearch(stl);
+       }
+    }
+  function SSi(){
+  onSearch(keyBox.value);
+  }
+  function onSearch(stl){
+            let student={
+             name:stl
+             }
+ var strStudent=JSON.stringify(student); 
+ window.open("BiTi.html?student="+window.encodeURIComponent(strStudent));
+  }
+</script>
+  <style>
+body{
+  margin:0;
+  padding:0;
+  overflow:hidden;
+  background-color:white;
+  }
+.wrap-box{
+  width:100%;
+  margin-top:20%;
+  background-color:white;
+  }
+.flex-box{
+   display: flex;
+} 
+  #key-box{
+   width:100vw;
+   border:none;
+   outline: none;
+   font-size:25px;
+   text-align:center;
+   border-bottom:1px solid black;
+       }
+#txtBox>p:hover{
+  background-color:#ffc6e7;
+}
+</style>
+ </body>
+</html>

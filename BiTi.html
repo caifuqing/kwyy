@@ -1,0 +1,230 @@
+<html>
+ <head></head>
+ <body>
+  <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title></title>
+   <link rel="stylesheet" href="bottom.css">
+   <script src="LPE.js"></script>
+   <script src="music.js"></script>
+   <div  id="locati">
+<div class="loading">
+		<span></span>
+		<span></span>
+		<span></span>
+		<span></span>
+		<span></span>
+	</div>
+ </div>
+  <div id="top"></div>
+  <div id="kuang" class="kuang"></div>
+  <div id="bottom">
+<div id="JinDuTiao"><div id="JinDu"></div></div>
+<div id="D">
+<div id="DfengmianK"><div id="Dbofanghei"></div><div id="Dfengmian"></div></div>
+<div id="Dgsxx"><b id="Dname"></b></br><small id="Dshou"></small></div>
+<div id="Dshichang">
+<div id="musicButton"></div>
+<label for="cb" class="cc" id="musicLie"></label>
+<p id="MZtime">00:00</p>
+<p id="MDtime">00:00</p>
+</div>
+</div>
+</div>
+  <script>
+ var info=[];
+ var SRC=[];
+ var Fm=[];
+ var Mnames=[];
+ var Msingers=[];
+ var someUrl=location.search;
+ var someWin=window.decodeURIComponent(someUrl.split("=")[1])
+ if(someWin=='undefined'){
+ musicThis('周杰伦');
+ }else{
+ var student=JSON.parse(someWin);
+let name=student.name;
+if(name==""){
+name="周杰伦";
+}
+ musicThis(name);
+ }
+function musicThis(name){
+let api="http://www.ilingku.com/api/qqmusic/v2?act=search&total=50&wd="+name;
+fetch(api).then(response => response.json()).then(data => {
+ musicAll(data);
+ });
+function musicAll(arr){
+let ML=arr.num;
+for(i=0;i<ML;i++){
+lie=`
+<div id="lie" class="lie" data-li="${i}"></div>
+`;
+kuang.innerHTML +=lie;
+info[i]=arr.list[i].info;
+if(i!==0&&i==ML-1){
+locati.style.display = 'none';
+for(i=0;i<info.length;i++){
+fetch(info[i]).then(response =>  response.json()).then(data => {
+fcc(data);
+});
+}
+const lies=document.querySelectorAll(".lie");
+var I=0;
+function fcc(data){
+SRC[I]=data.url;
+let fm=data.pic;
+Fm[I]=fm;
+let name=data.name;
+Mnames[I]=name;
+let singer=data.singer;
+Msingers[I]=singer;
+if(fm==undefined){
+fm="img/undefined.jpeg";
+name='没有歌曲';
+singer='系统';
+}
+lies[I].innerHTML=`
+<div id="FM" class="FM" style="background-image:url(${fm});"></div>
+<div id="Mname"><b id="Gname">${name}</b></br><small id="Gshou">${singer}</small><audio></audio></div>
+`;
+I++;
+}
+for(const li of lies){
+li.onclick=function (){
+const musics=document.querySelectorAll(".lie audio");
+let I=li.getAttribute("data-li");
+if(musics[I].src==''){
+musics[I].src=SRC[I];
+Dbofanghei.style.backgroundImage ='url('+Fm[I]+')';
+fcc=Msingers[I]+'-'+Mnames[I];
+musicTIME(musics[I],fcc,I);
+musicPauseandPlay(musics[I]);
+}
+musics[I].play();
+function pauseAll() {
+    var self = this;
+    [].forEach.call(musics, function (i) {
+// 将audios中其他的audio全部暂停
+       i !== self && i.pause();
+    })
+}
+// 给play事件绑定暂停函数
+[].forEach.call(musics, function (i) {
+    i.addEventListener("play", pauseAll.bind(i));
+})
+}
+}
+
+}
+}
+}
+}
+ </script>
+  <style>
+  body{
+  margin:0;
+  padding:0;
+  overflow:hidden;
+  background-color:white;
+  }
+
+#top{
+  width:100%;
+  height:15%;
+  }
+
+#kuang{
+  width:100%;
+  height:73.5vh;
+  overflow-y: auto;
+  }
+#lie{
+  width:96%;
+  height:50px;
+  margin:2%;
+  overflow:hidden;
+  }
+#FM{
+    width:15%;
+    height:100%;
+    float:left;
+    background-color:#cccccc;
+    border-radius:5px;
+    background-size:100% 100%;
+    position: relative;
+    }
+#Mname{
+    width:83%;
+    height:100%;
+    float:right;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    }
+#Mname b{
+  font-size:14px;
+  color:black;
+  }
+#Mname small{
+  color:#8c8e91;
+  font-size:12px;
+  }
+#Dbofanghei{
+  background-image:url('img/fengmian.jpg');
+  }
+#Dfengmian{
+  background-image:url('img/PY.png');
+ }
+#musicButton{
+  background-image:url('./img/play.png');
+  }
+ #locati{
+     width:100%;
+     height:100vh;
+     background-color:rgba(0,0,0,0.3);
+     position:fixed;
+     z-index:999;
+     }
+   .loading{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+   	height: 40px;
+   	display: flex;
+   }
+   .loading span{
+   	width: 8px;
+   	height: 100%;
+   	border-radius: 4px;
+   	background-color:#ff8586;
+   	animation: load 1s ease infinite;
+   	margin: 0 2px;
+   }
+   @keyframes load{
+   	0%,
+   	100% {
+   		transform: scaleY(1.5);
+   		background-color:#009fff;
+   	}
+   	50% {
+   		transform: scaleY(1);
+   		background-color:#95d7ff;
+   	}
+   }
+   
+   .loading span:nth-child(2){
+   	animation-delay: 0.2s;
+   }
+   .loading span:nth-child(3){
+   	animation-delay: 0.4s;
+   }
+   .loading span:nth-child(4){
+   	animation-delay: 0.6s;
+   }
+   .loading span:nth-child(5){
+   	animation-delay: 0.8s;
+   }
+ </style>
+ </body>
+</html>
