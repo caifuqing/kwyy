@@ -53,8 +53,8 @@ function musicTIME(music,name,I){
           }
           //暂停与播放事件
           function musicPlay(){
-              musicButton.style.backgroundImage = "url(./img/play.png)";
+              musicButton.style.backgroundImage = "url(play.png)";
               }
             function musicPause(){
-              musicButton.style.backgroundImage = "url(./img/pause.png)";
+              musicButton.style.backgroundImage = "url(pause.png)";
               }
