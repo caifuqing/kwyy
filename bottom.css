@@ -105,10 +105,10 @@
   bottom:-20%;
   }
 #MZtime{
-  left:2%;
+  left:-2%;
   }
 #MDtime{
-  right:2%;
+  right:-2%;
   }
 @keyframes move{
              0%{
