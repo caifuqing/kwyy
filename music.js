@@ -1,7 +1,6 @@
-
-//音乐时长
-function musicTIME(music,name,I){
-    music.oncanplay=function(){
+function musicTIME(music,fm,name,I){
+        music.ontimeupdate=function(){
+        //总时长
         tTime=music.duration;
         var zm=Math.floor(tTime%3600/60);
         var zs=Math.floor(tTime%60);
@@ -9,10 +8,7 @@ function musicTIME(music,name,I){
         zs=zs>=10?zs:"0"+zs;
         if(MDtime){
         MDtime.innerText=zm+":"+zs;
-        musicPauseandPlay(music);
-        }
-      }
-      music.ontimeupdate=function(){
+         }
           //当前播放进度
           var cTime=music.currentTime;
           var m=Math.floor(cTime%3600/60);
@@ -25,8 +21,9 @@ function musicTIME(music,name,I){
           var value=cTime/tTime;
           JinDu.style.width=value*100+'%';
           Sname=name.split(/-/);
+          SiL=Sname.length-1;
           Author=Sname[0];
-          Namep=Sname[1];
+          Namep=Sname[SiL];
           if(Namep==undefined){
             Namep=Sname[0];
             Author='未知歌手';
@@ -34,10 +31,11 @@ function musicTIME(music,name,I){
           Dname.innerText=Namep;
           Dshou.innerText=Author;
           let AN=Author+'-'+Namep;
-          let data = {l:I,src:music.src,age:cTime,all:tTime,name:AN};
+          let data = {l:I,Fm:fm,src:music.src,age:cTime,all:tTime,name:AN};
           arrBonly(JSON.stringify(data));
         }
-      }
+      musicPauseandPlay(music);
+}
       //暂停与播放
       function musicPauseandPlay(music){
           musicButton.onclick=function (){
