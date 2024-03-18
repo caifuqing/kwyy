@@ -99,17 +99,17 @@
   height:100%;
   position:relative;
   }
-#Dshichang p{
+#Dshichang small{
   filter:drop-shadow(0 0 1px #000000);
   color:white;
   position:absolute;
-  bottom:-20%;
+  bottom:2%;
   }
 #MZtime{
-  left:-2%;
+  left:0;
   }
 #MDtime{
-  right:-2%;
+  right:0;
   }
 @keyframes move{
              0%{
