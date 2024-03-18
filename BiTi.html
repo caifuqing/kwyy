@@ -95,10 +95,11 @@ const musics=document.querySelectorAll(".lie audio");
 let I=li.getAttribute("data-li");
 if(musics[I].src==''){
 musics[I].src=SRC[I];
+}
 Dbofanghei.style.backgroundImage ='url('+Fm[I]+')';
 musicTIME(musics[I],Msingers[I]+'-'+Mnames[I],I);
 musicPauseandPlay(musics[I]);
-}
+
 musics[I].play();
 function pauseAll() {
     var self = this;
